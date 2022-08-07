@@ -23,7 +23,6 @@ const api_users_signup_post = async (req, res) => {
     //201 is saved succesfully
     res.status(201).json({status:"ok",user:savedUser});
   } catch (err) {
-    console.log("error is",err);
     res.status(500).json({status:err,error:"Duplicate Mail"});
   }
 

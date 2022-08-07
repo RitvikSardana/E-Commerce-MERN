@@ -15,6 +15,56 @@ router.post("/", verifyTokenAuth, async (req, res) => {
   }
 });
 
+//GET All Users Cart
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.status(200).json({ status: "ok", data: orders });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err });
+  }
+});
+
+//GET User Orders
+router.get("/find/:userId", verifyTokenAuth, async (req, res) => {
+  try {
+    const orders = await Order.find({userId:req.params.userId});
+    res.status(200).json({ status: "ok", data: orders });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err });
+  }
+});
+
+
+// Get Monthly Income
+router.get("/income", verifyTokenAndAdmin, async (req, res) => {
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  const previousMonth = new Date(
+    new Date().setMonth(lastMonth.getMonth() - 1)
+  );
+  try {
+    const income = await Order.aggregate([
+      { $match: { createdAt: { $gte: previousMonth } } },
+      {
+        $project: {
+          month: { $month: "$createdAt" },
+          sales: "$amount",
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: "$sales" },
+        },
+      },
+    ]);
+    res.status(200).json({ status: "ok", data: income });
+  } catch (err) {
+    res.status(500).json({ status: "error", error: err });
+  }
+});
+
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
@@ -41,58 +91,10 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET User Orders
-router.get("/:id", verifyTokenAuth, async (req, res) => {
-  
-  try {
-    const orders = await Order.find(req.params.id);
-    console.log(orders)
-    
-    res.status(200).json({ status: "ok", data: orders });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
 
-//GET All Users Cart
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const orders = await Order.find();
-    res.status(200).json({ status: "ok", data: orders });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
 
-// Get Monthly Income
-router.get("/income", verifyTokenAndAdmin, async (req, res) => {
-  const date = new Date();
-  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-  const previousMonth = new Date(
-    new Date().setMonth(lastMonth.getMonth() - 1)
-  );
 
-  try {
-    const income = await Order.aggregate([
-      { $match: { createdAt: { $gte: previousMonth } } },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-          sales: "$amount",
-        },
-      },
-      {
-        $group: {
-          _id: "$month",
-          total: { $sum: "$sales" },
-        },
-      },
-    ]);
-    console.log("SAdasdsa")
-    res.status(200).json({ status: "ok", data: income });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
+
+
 
 module.exports = router;

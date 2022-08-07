@@ -1,15 +1,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const dotenv = require('dotenv')
 dotenv.config();
-
-const userRoute = require('./routes/userRoute');
-const authRoute = require('./routes/authRoute.js');
-const productRoute = require('./routes/productRoute');
-const cartRoute = require('./routes/cart');
-const orderRoute = require('./routes/order');
-
 
 mongoose.connect(process.env.MONGO_URL)
     .then(()=>app.listen(process.env.PORT || 1337,()=>{
@@ -20,6 +14,13 @@ mongoose.connect(process.env.MONGO_URL)
     });
 
 app.use(express.json());
+app.use(cors());
+
+const userRoute = require('./routes/userRoute');
+const authRoute = require('./routes/authRoute.js');
+const productRoute = require('./routes/productRoute');
+const cartRoute = require('./routes/cart');
+const orderRoute = require('./routes/order');
 
 app.use('/api/auth',authRoute);
 app.use('/api/users',userRoute);
