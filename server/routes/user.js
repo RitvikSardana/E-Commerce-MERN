@@ -5,7 +5,7 @@ const {
   api_users_find_get,
   api_users_all_get,
   api_users_stats_get,
-} = require("../controllers/userController");
+} = require("../controllers/user");
 const { verifyTokenAuth, verifyTokenAndAdmin } = require("./verifyToken");
 
 //UPDATE USER

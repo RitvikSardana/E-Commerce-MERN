@@ -1,70 +1,26 @@
 const router = require("express").Router();
-
-const Cart = require("../models/Cart");
+const {
+  api_cart_post,
+  api_cart_put,
+  api_cart_delete,
+  api_user_cart_get,
+  api_all_users_cart_get,
+} = require("../controllers/cart");
 const { verifyTokenAuth, verifyTokenAndAdmin } = require("./verifyToken");
 
 //CREATE Cart
-
-router.post("/", verifyTokenAuth, async (req, res) => {
-  const newCart = new Cart(req.body);
-
-  try {
-    const savedCart = await newCart.save();
-    res.status(200).json({status:"ok",data:savedCart});
-  } catch (err) {
-    res.status(500).json({ status: "Duplicate Product Found", error: err });
-  }
-});
+router.post("/", verifyTokenAuth, api_cart_post);
 
 //UPDATE
-router.put("/:id", verifyTokenAuth, async (req, res) => {
-  try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json({ status: "ok", data: updatedCart });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
+router.put("/:id", verifyTokenAuth, api_cart_put);
 
 //DELETE
-router.delete("/:id", verifyTokenAuth, async (req, res) => {
-  try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res
-      .status(200)
-      .json({ status: "ok", data: "Cart Product has been deleted" });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-
-  }
-});
+router.delete("/:id", verifyTokenAuth, api_cart_delete);
 
 //GET User Cart
-router.get("/:id", verifyTokenAuth, async (req, res) => {
-  try {
-    const cart = await Cart.findById(req.params.id);
-
-    res.status(200).json({ status: "ok", data: cart });
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
+router.get("/:id", verifyTokenAuth, api_user_cart_get);
 
 //GET All Users Cart
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const carts = await Cart.find()
-    res.status(200).json({status:"ok",data:carts})
-
-  } catch (err) {
-    res.status(500).json({ status: "error", error: err });
-  }
-});
+router.get("/", verifyTokenAndAdmin, api_all_users_cart_get);
 
 module.exports = router;

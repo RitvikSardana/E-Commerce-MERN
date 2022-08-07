@@ -16,9 +16,9 @@ mongoose.connect(process.env.MONGO_URL)
 app.use(express.json());
 app.use(cors());
 
-const userRoute = require('./routes/userRoute');
-const authRoute = require('./routes/authRoute.js');
-const productRoute = require('./routes/productRoute');
+const userRoute = require('./routes/user');
+const authRoute = require('./routes/auth.js');
+const productRoute = require('./routes/product');
 const cartRoute = require('./routes/cart');
 const orderRoute = require('./routes/order');
 
