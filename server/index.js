@@ -21,9 +21,11 @@ const authRoute = require('./routes/auth.js');
 const productRoute = require('./routes/product');
 const cartRoute = require('./routes/cart');
 const orderRoute = require('./routes/order');
+const stripe = require('./routes/stripe')
 
 app.use('/api/auth',authRoute);
 app.use('/api/users',userRoute);
 app.use('/api/products',productRoute);
 app.use('/api/carts',cartRoute);
 app.use('/api/orders', orderRoute);
+app.use('/api/checkout',stripe)

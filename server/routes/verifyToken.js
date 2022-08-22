@@ -3,16 +3,16 @@ const jwt = require('jsonwebtoken')
 const verifyToken = (req,res,next) =>{
     const authHeader = req.headers.token
     if(authHeader) {
-        const token = authHeader.split(" ")[1]
+        const token = authHeader.split(" ")[1]; // Bearer separated
         jwt.verify(token,process.env.JWT_SECRET_KEY,(err,user)=>{
-            if(err) return res.status(401).json({error:"Invalid Token!"})
+            if(err) return res.status(401).json({ status: "error", error: "Invalid Token!" })
             req.user = user;
             next();
 
         })
     }
     else {
-        return res.status(401).json({error:"You are not authenticated!"})
+        return res.status(401).json({ status: "error", error: "Invalid Token!" })
     }
 }
 
@@ -22,7 +22,7 @@ const verifyTokenAuth = (req,res,next) =>{
             next()
         }
         else{
-            res.status(403).json({error:"Permission Denied"})
+            res.status(403).json({ status: "error", error: "Permission Denied" })
         }
     })
 }

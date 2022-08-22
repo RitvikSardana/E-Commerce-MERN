@@ -1,10 +1,12 @@
 const router = require("express").Router();
 
-const {     api_products_post,
+const {
+  api_products_post,
   api_products_put,
   api_products_delete,
   api_single_product_get,
-  api_all_products_get } = require("../controllers/product");
+  api_all_products_get,
+} = require("../controllers/product");
 const { verifyTokenAuth, verifyTokenAndAdmin } = require("./verifyToken");
 
 //CREATE
@@ -18,9 +20,9 @@ router.put("/:id", verifyTokenAndAdmin, api_products_put);
 router.delete("/:id", verifyTokenAndAdmin, api_products_delete);
 
 //GET Product
-router.get("/:id",api_single_product_get)
+router.get("/find/:id", api_single_product_get);
 
 //GET All Products
-router.get("/",api_all_products_get)
+router.get("/", api_all_products_get);
 
 module.exports = router;
