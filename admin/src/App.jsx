@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import './App.css'
-import Navbar from './Components/Navbar'
-import Sidebar from './Components/Sidebar'
+import { useState } from "react";
+import styled from "styled-components";
+import "./App.css";
+import Navbar from "./Components/Navbar";
+import Sidebar from "./Components/Sidebar";
+import Home from "./Pages/Home";
 function App() {
-
   return (
     <div className="App">
       <Navbar />
-      <Sidebar />
+      <Container>
+        <Sidebar />
+        <Home />
+      </Container>
     </div>
-  )
+  );
 }
 
-export default App
+const Container = styled.section`
+display:flex;
+
+`;
+
+export default App;
