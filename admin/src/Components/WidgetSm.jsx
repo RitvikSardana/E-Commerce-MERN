@@ -7,6 +7,7 @@ const WidgetSm = () => {
       <Title>New Members</Title>
       <WidgetList>
         <WidgetListItem>
+          <WidgetUser>
           <Image
             src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
             alt=""
@@ -15,12 +16,14 @@ const WidgetSm = () => {
             <WidgetUsername>Anna Keller</WidgetUsername>
             <WidgetUserJob>Software Engineer</WidgetUserJob>
           </WidgetUserInfo>
+          </WidgetUser>
           <WidgetButton>
             <VisibilityIcon />
             Display
           </WidgetButton>
         </WidgetListItem>
         <WidgetListItem>
+          <WidgetUser>
           <Image
             src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
             alt=""
@@ -29,12 +32,14 @@ const WidgetSm = () => {
             <WidgetUsername>Anna Keller</WidgetUsername>
             <WidgetUserJob>Software Engineer</WidgetUserJob>
           </WidgetUserInfo>
+          </WidgetUser>
           <WidgetButton>
             <VisibilityIcon />
             Display
           </WidgetButton>
         </WidgetListItem>
         <WidgetListItem>
+          <WidgetUser>
           <Image
             src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
             alt=""
@@ -43,12 +48,14 @@ const WidgetSm = () => {
             <WidgetUsername>Anna Keller</WidgetUsername>
             <WidgetUserJob>Software Engineer</WidgetUserJob>
           </WidgetUserInfo>
+          </WidgetUser>
           <WidgetButton>
             <VisibilityIcon />
             Display
           </WidgetButton>
         </WidgetListItem>
         <WidgetListItem>
+          <WidgetUser>
           <Image
             src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
             alt=""
@@ -57,25 +64,13 @@ const WidgetSm = () => {
             <WidgetUsername>Anna Keller</WidgetUsername>
             <WidgetUserJob>Software Engineer</WidgetUserJob>
           </WidgetUserInfo>
+          </WidgetUser>
           <WidgetButton>
             <VisibilityIcon />
             Display
           </WidgetButton>
         </WidgetListItem>
-        <WidgetListItem>
-          <Image
-            src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
-          <WidgetUserInfo>
-            <WidgetUsername>Anna Keller</WidgetUsername>
-            <WidgetUserJob>Software Engineer</WidgetUserJob>
-          </WidgetUserInfo>
-          <WidgetButton>
-            <VisibilityIcon />
-            Display
-          </WidgetButton>
-        </WidgetListItem>
+
       </WidgetList>
     </Container>
   );
@@ -107,7 +102,15 @@ const Image = styled.img`
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
+  margin-right:0.5rem;
 `;
+
+const WidgetUser = styled.div`
+  display:flex;
+  align-items:center;
+
+`;
+
 const WidgetUserInfo = styled.div`
   display: flex;
   flex-direction: column;
