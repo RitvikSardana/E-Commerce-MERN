@@ -49,7 +49,26 @@ export const userData = [
   },
 ];
 
-export const rows = [
+export const productData = [
+  {
+    name: "Jan",
+    "Sales": 4000,
+  },
+  {
+    name: "Feb",
+    "Sales": 2000,
+  },
+  {
+    name: "Mar",
+    "Sales": 3000,
+  },
+  {
+    name: "April",
+    "Sales": 3000,
+  },
+];
+
+export const userRows = [
   {
     id: 1,
     username: "Jon Snow",
@@ -131,4 +150,89 @@ export const rows = [
     status: "active",
     transaction: "₹5000.00",
   },
+];
+
+export const productRows = [
+  {
+    id: 1,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 2,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 3,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 4,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 5,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 6,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 7,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 8,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+  {
+    id: 9,
+    name: "Apple Airpods",
+    img:
+      "https://images.pexels.com/photos/7156886/pexels-photo-7156886.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    stock: 111,
+    status: "active",
+    price: "₹11000.00",
+  },
+
 ];

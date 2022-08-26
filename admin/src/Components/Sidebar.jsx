@@ -12,7 +12,15 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import ReportIcon from "@mui/icons-material/Report";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 const Sidebar = () => {
+
+  const [currentPage,setCurrentPage] = useState('')
+
+  const pageToggle = (e) => {
+    setCurrentPage(e.target.innerText);
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -20,12 +28,12 @@ const Sidebar = () => {
           <SidebarTitle>Dashboard</SidebarTitle>
           <SidebarList>
             <Link to='/'>
-            <SidebarListItem className="active">
+            <SidebarListItem className={currentPage === 'Home' && 'active'} onClick={(e)=>pageToggle(e)} >
               <LineStyleIcon />
               Home
             </SidebarListItem>
             </Link>
-            <SidebarListItem>
+            <SidebarListItem >
               <TimelineIcon />
               Analytics
             </SidebarListItem>
@@ -39,13 +47,13 @@ const Sidebar = () => {
           <SidebarTitle>Quick Menu</SidebarTitle>
           <SidebarList>
             <Link to="/users">
-              <SidebarListItem>
+              <SidebarListItem className={currentPage === 'Users' && 'active'} onClick={(e)=>pageToggle(e)}>
                 <PersonOutlinedIcon />
                 Users
               </SidebarListItem>
             </Link>
             <Link to="/products">
-              <SidebarListItem>
+              <SidebarListItem className={currentPage === 'Products' && 'active'} onClick={(e)=>pageToggle(e)}>
                 <StorefrontOutlinedIcon />
                 Products
               </SidebarListItem>

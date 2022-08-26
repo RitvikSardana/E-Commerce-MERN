@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
-import { userRows } from "../dummyData";
+import { productRows } from "../dummyData";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { Link } from "react-router-dom";
 
-const UserList = () => {
-  const [rowData, setRowData] = useState(userRows);
+const ProductList = () => {
+  const [rowData, setRowData] = useState(productRows);
 
   const deleteHandler = (id) => {
     console.log(id);
@@ -19,25 +19,25 @@ const UserList = () => {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "user",
-      headerName: "User",
+      field: "product",
+      headerName: "Product",
       width: 200,
       renderCell: (params) => (
-        <UserContainer>
-          <Image src={params.row.avatar} alt="" />
-          {params.row.username}
-        </UserContainer>
+        <ProductContainer>
+          <Image src={params.row.img} alt="" />
+          {params.row.name}
+        </ProductContainer>
       ),
     },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "stock", headerName: "Stock", width: 200 },
     {
       field: "status",
       headerName: "Status",
       width: 120,
     },
     {
-      field: "transaction",
-      headerName: "Transaction",
+      field: "price",
+      headerName: "Price",
       width: 160,
     },
     {
@@ -46,7 +46,7 @@ const UserList = () => {
       width: 150,
       renderCell: (params) => (
         <ActionContainer>
-          <Link to={`/user/${params.row.id}`}>
+          <Link to={`/product/${params.row.id}`}>
             <Button>Edit</Button>
           </Link>
           <DeleteOutlinedIcon onClick={() => deleteHandler(params.row.id)} />
@@ -69,11 +69,13 @@ const UserList = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
   flex: 4;
+  padding: 1.2rem;
 `;
 
-const UserContainer = styled.div`
+const ProductContainer = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -105,4 +107,4 @@ const Button = styled.button`
   margin-right: 0.4rem;
 `;
 
-export default UserList;
+export default ProductList;
