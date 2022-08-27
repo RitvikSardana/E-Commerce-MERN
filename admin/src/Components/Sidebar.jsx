@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const Sidebar = () => {
 
-  const [currentPage,setCurrentPage] = useState('')
+  const [currentPage,setCurrentPage] = useState('Home')
 
   const pageToggle = (e) => {
     setCurrentPage(e.target.innerText);
