@@ -31,8 +31,6 @@ const api_users_signup_post = async (req, res) => {
 
 const api_users_login_post = async (req,res)=>{
     let { username, password2 } = req.body;
-  
-    
     try{
       const user = await User.findOne({username})
       !user && res.status(401).json({status:"error",error:"Wrong Credentials"})

@@ -7,26 +7,46 @@ import Home from "./Pages/Home";
 import User from "./Pages/User";
 import UserList from "./Pages/UserList";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import NewUser from "./Pages/NewUser";
 import ProductList from "./Pages/ProductList";
 import Product from "./Pages/Product";
 import NewProduct from "./Pages/NewProduct";
+import Login from "./Pages/Login";
+import { useSelector } from "react-redux";
 
 function App() {
+  const admin =
+    JSON.parse(JSON.parse(localStorage.getItem("persist:root")).currentUser)
+      ?.isAdmin || "";
+
   return (
     <Router>
-      <Navbar />
+      {admin && <Navbar />}
       <Container>
-        <Sidebar />
+        {admin && <Sidebar />}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/user/:id" element={<User />} />
-          <Route path="/newUser" element={<NewUser />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/newProduct" element={<NewProduct />} />
+          <Route
+            path="/login"
+            element={admin ? <Navigate to="/" /> : <Login />}
+          />
+
+          {admin && (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/user/:id" element={<User />} />
+              <Route path="/newUser" element={<NewUser />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/newProduct" element={<NewProduct />} />
+            </>
+          )}
         </Routes>
       </Container>
     </Router>
