@@ -13,7 +13,7 @@ const { verifyTokenAuth, verifyTokenAndAdmin } = require("./verifyToken");
 //CREATE Order
 router.post("/", verifyTokenAuth, api_orders_post);
 
-//GET All Users Cart
+//GET All Users Orders
 router.get("/", verifyTokenAndAdmin, api_all_users_orders_get);
 
 //GET User Orders

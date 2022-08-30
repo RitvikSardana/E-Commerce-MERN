@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { userRequest } from "../requestMethods";
+import {format} from 'timeago.js'
 
 const WidgetLg = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await userRequest.get("/orders");
+        let {
+          data: { data },
+        } = res;
+        setOrders(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getOrders();
+    return () => {};
+  }, []);
+
   return (
     <Container>
       <Title>Latest Transactions</Title>
@@ -12,66 +32,19 @@ const WidgetLg = () => {
           <TableHeading>Amount</TableHeading>
           <TableHeading>Status</TableHeading>
         </TableRow>
-        <TableRow>
-          <TableDataImage>
-            <Image
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-            />
-            <Name>Susan Carol</Name>
-          </TableDataImage>
-          <TableDataDate>2 Jun 2022</TableDataDate>
-          <TableDataAmount>₹5,000.00</TableDataAmount>
-          <TableDataStatus>
-            {/* Approved Pending Declined */}
-            <Button type="Approved">Approved</Button>
-          </TableDataStatus>
-        </TableRow>
-        <TableRow>
-          <TableDataImage>
-            <Image
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-            />
-            <Name>Susan Carol</Name>
-          </TableDataImage>
-          <TableDataDate>2 Jun 2022</TableDataDate>
-          <TableDataAmount>₹5,000.00</TableDataAmount>
-          <TableDataStatus>
-            {/* Approved Pending Declined */}
-            <Button type="Declined">Declined</Button>
-          </TableDataStatus>
-        </TableRow>
-        <TableRow>
-          <TableDataImage>
-            <Image
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-            />
-            <Name>Susan Carol</Name>
-          </TableDataImage>
-          <TableDataDate>2 Jun 2022</TableDataDate>
-          <TableDataAmount>₹5,000.00</TableDataAmount>
-          <TableDataStatus>
-            {/* Approved Pending Declined */}
-            <Button type="Approved">Approved</Button>
-          </TableDataStatus>
-        </TableRow>
-        <TableRow>
-          <TableDataImage>
-            <Image
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-            />
-            <Name>Susan Carol</Name>
-          </TableDataImage>
-          <TableDataDate>2 Jun 2022</TableDataDate>
-          <TableDataAmount>₹5,000.00</TableDataAmount>
-          <TableDataStatus>
-            {/* Approved Pending Declined */}
-            <Button type="Pending">Pending</Button>
-          </TableDataStatus>
-        </TableRow>
+        {orders.map((order) => (
+          <TableRow key = {order._id}>
+            <TableDataImage>
+              <Name>{order.userId}</Name>
+            </TableDataImage>
+            <TableDataDate>{format(order.createdAt)}</TableDataDate>
+            <TableDataAmount>₹ { order.amount }</TableDataAmount>
+            <TableDataStatus>
+              {/* Approved Pending Declined */}
+              <Button type={'order.status'}>{order.status}</Button>
+            </TableDataStatus>
+          </TableRow>
+        ))}
       </Table>
     </Container>
   );
@@ -121,15 +94,15 @@ const Button = styled.button`
   border: none;
   border-radius: 0.6rem;
   background-color: ${(props) =>
-    props.type === "Approved"
+    props.type === "approved"
       ? "#e5faf2"
-      : props.type === "Declined"
+      : props.type === "declined"
       ? "#fff0f1"
       : "#ebf1fe"};
   color: ${(props) =>
-    props.type === "Approved"
+    props.type === "approved"
       ? "#3bb077"
-      : props.type === "Declined"
+      : props.type === "declined"
       ? "#d95087"
       : "#2a7ade"};
 `;

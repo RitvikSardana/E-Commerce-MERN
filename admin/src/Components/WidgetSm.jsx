@@ -1,76 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { userRequest } from "../requestMethods";
 const WidgetSm = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await userRequest.get("/users/?new=true");
+        const {
+          data: { data },
+        } = res;
+        setUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUsers();
+    return () => {};
+  }, []);
+
   return (
     <Container>
       <Title>New Members</Title>
       <WidgetList>
-        <WidgetListItem>
-          <WidgetUser>
-          <Image
-            src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
-          <WidgetUserInfo>
-            <WidgetUsername>Anna Keller</WidgetUsername>
-            <WidgetUserJob>Software Engineer</WidgetUserJob>
-          </WidgetUserInfo>
-          </WidgetUser>
-          <WidgetButton>
-            <VisibilityIcon />
-            Display
-          </WidgetButton>
-        </WidgetListItem>
-        <WidgetListItem>
-          <WidgetUser>
-          <Image
-            src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
-          <WidgetUserInfo>
-            <WidgetUsername>Anna Keller</WidgetUsername>
-            <WidgetUserJob>Software Engineer</WidgetUserJob>
-          </WidgetUserInfo>
-          </WidgetUser>
-          <WidgetButton>
-            <VisibilityIcon />
-            Display
-          </WidgetButton>
-        </WidgetListItem>
-        <WidgetListItem>
-          <WidgetUser>
-          <Image
-            src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
-          <WidgetUserInfo>
-            <WidgetUsername>Anna Keller</WidgetUsername>
-            <WidgetUserJob>Software Engineer</WidgetUserJob>
-          </WidgetUserInfo>
-          </WidgetUser>
-          <WidgetButton>
-            <VisibilityIcon />
-            Display
-          </WidgetButton>
-        </WidgetListItem>
-        <WidgetListItem>
-          <WidgetUser>
-          <Image
-            src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-          />
-          <WidgetUserInfo>
-            <WidgetUsername>Anna Keller</WidgetUsername>
-            <WidgetUserJob>Software Engineer</WidgetUserJob>
-          </WidgetUserInfo>
-          </WidgetUser>
-          <WidgetButton>
-            <VisibilityIcon />
-            Display
-          </WidgetButton>
-        </WidgetListItem>
-
+        {users.map((user) => (
+          <WidgetListItem key={user._id}>
+            <WidgetUser>
+              <Image
+                src={
+                  user.img ||
+                  "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+                }
+                alt=""
+              />
+              <WidgetUserInfo>
+                <WidgetUsername>{user.username}</WidgetUsername>
+              </WidgetUserInfo>
+            </WidgetUser>
+            <WidgetButton>
+              <VisibilityIcon />
+              Display
+            </WidgetButton>
+          </WidgetListItem>
+        ))}
       </WidgetList>
     </Container>
   );
@@ -102,13 +76,12 @@ const Image = styled.img`
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
-  margin-right:0.5rem;
+  margin-right: 0.5rem;
 `;
 
 const WidgetUser = styled.div`
-  display:flex;
-  align-items:center;
-
+  display: flex;
+  align-items: center;
 `;
 
 const WidgetUserInfo = styled.div`
@@ -116,27 +89,25 @@ const WidgetUserInfo = styled.div`
   flex-direction: column;
 `;
 const WidgetUsername = styled.span`
-    font-weight:600;
+  font-weight: 600;
 `;
 const WidgetUserJob = styled.span`
-    font-weight:300;
-
+  font-weight: 300;
 `;
 const WidgetButton = styled.button`
   display: flex;
-  align-items:center;
-  border:none;
-  padding:0.3rem;
-  border-radius:0.6rem;
-  background-color:#eeeef7;
-  color:#555;
+  align-items: center;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 0.6rem;
+  background-color: #eeeef7;
+  color: #555;
   cursor: pointer;
 
   svg {
-    font-size:1rem;
-    margin-right:0.3rem;
+    font-size: 1rem;
+    margin-right: 0.3rem;
   }
-
 `;
 
 export default WidgetSm;
