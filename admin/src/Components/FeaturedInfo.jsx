@@ -15,7 +15,6 @@ const FeaturedInfo = () => {
           data: { data },
         } = res;
         setIncome(data.sort((a, b) => a._id - b._id));
-        console.log(data.sort((a, b) => a._id - b._id));
         const change =
           ((data[data.length - 1].total - data[data.length - 2].total) /
             data[data.length - 2].total) *
@@ -28,7 +27,6 @@ const FeaturedInfo = () => {
     getIncome();
   }, []);
 
-  console.log(income[income.length - 1].total,percentageChange)
 
   return (
     <Container>
@@ -36,7 +34,7 @@ const FeaturedInfo = () => {
       <FeatureItem>
         <FeatureTitle>Revenue</FeatureTitle>
         <FeatureMoneyInfoContainer>
-          <FeatureMoney>₹{income[income.length - 1].total}</FeatureMoney>
+          <FeatureMoney>₹{income[income.length - 1]?.total}</FeatureMoney>
           <FeatureMoneyRate sign={percentageChange < 0 ? "negative" :"positive"}>
             {Math.ceil(percentageChange*100)/100}%
             {percentageChange < 0 ? <ArrowDownwardIcon /> :<ArrowUpwardIcon />}

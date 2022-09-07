@@ -48,7 +48,9 @@ const Home = () => {
     };
     getStats();
     
-    return () => {};
+    return () => {
+      
+    };
   }, [MONTHS]);
 
   return (

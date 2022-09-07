@@ -2,10 +2,10 @@ const Product = require("../models/Product");
 
 const api_products_post = async (req, res) => {
   const newProduct = new Product(req.body);
-
+  console.log(newProduct);
   try {
     const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
+    res.status(200).json({ status: "ok", data: savedProduct });
   } catch (err) {
     res.status(500).json({ status: "Duplicate Product Found", error: err });
   }

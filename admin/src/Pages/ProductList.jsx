@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from "@mui/x-data-grid";
 import { productRows } from "../dummyData";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { Link } from "react-router-dom";
+import {useDispatch,useSelector} from 'react-redux'
+import { deleteProduct, getProducts } from "../redux/apiCalls";
 
 const ProductList = () => {
   const [rowData, setRowData] = useState(productRows);
+  const dispatch = useDispatch()
+  const {products} = useSelector(state=>state.product)
 
+  useEffect(() => {
+    
+    getProducts(dispatch)
+  
+    return () => {
+    }
+  }, [dispatch])
+  
   const deleteHandler = (id) => {
-    console.log(id);
-
-    setRowData(rowData.filter((item) => item.id !== id));
-
-    console.log(rowData);
+    deleteProduct(id,dispatch)
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
       field: "product",
       headerName: "Product",
@@ -25,16 +33,11 @@ const ProductList = () => {
       renderCell: (params) => (
         <ProductContainer>
           <Image src={params.row.img} alt="" />
-          {params.row.name}
+          {params.row.title}
         </ProductContainer>
       ),
     },
-    { field: "stock", headerName: "Stock", width: 200 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
+    { field: "inStock", headerName: "Stock", width: 200 },
     {
       field: "price",
       headerName: "Price",
@@ -46,10 +49,10 @@ const ProductList = () => {
       width: 150,
       renderCell: (params) => (
         <ActionContainer>
-          <Link to={`/product/${params.row.id}`}>
+          <Link to={`/product/${params.row._id}`}>
             <Button>Edit</Button>
           </Link>
-          <DeleteOutlinedIcon onClick={() => deleteHandler(params.row.id)} />
+          <DeleteOutlinedIcon onClick={() => deleteHandler(params.row._id)} />
         </ActionContainer>
       ),
     },
@@ -58,7 +61,8 @@ const ProductList = () => {
   return (
     <Container>
       <DataGrid
-        rows={rowData}
+        rows={products}
+        getRowId = {(row) =>row._id}
         columns={columns}
         pageSize={8}
         disableSelectionOnClick

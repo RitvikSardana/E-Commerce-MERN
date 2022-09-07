@@ -22,8 +22,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const admin =
-    JSON.parse(JSON.parse(localStorage.getItem("persist:root")).currentUser)
-      ?.isAdmin || "";
+  (JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)?.currentUser)?.isAdmin || "";
 
   return (
     <Router>
