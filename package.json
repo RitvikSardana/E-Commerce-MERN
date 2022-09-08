@@ -1,0 +1,24 @@
+{
+  "name": "E-Commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && concurrently \"nodemon server/index.js\" \"cd client && npm install && npm start\" \"cd admin && npm install && npm run dev\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RitvikSardana/E-Commerce-MERN.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RitvikSardana/E-Commerce-MERN/issues"
+  },
+  "homepage": "https://github.com/RitvikSardana/E-Commerce-MERN#readme",
+  "dependencies": {
+    "concurrently": "^7.4.0"
+  }
+}
