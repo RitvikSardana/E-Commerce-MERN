@@ -21,9 +21,9 @@ import Login from "./Pages/Login";
 import { useSelector } from "react-redux";
 
 function App() {
-  const admin =
-  (JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)?.currentUser)?.isAdmin || "";
-
+  // const admin =
+  // (JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)?.currentUser)?.isAdmin || "";
+  const admin = useSelector((state) => state.user?.currentUser?.isAdmin);
   return (
     <Router>
       {admin && <Navbar />}
@@ -37,7 +37,7 @@ function App() {
 
           {admin && (
             <>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={admin ? <Home /> :<Navigate to="/login" />} />
               <Route path="/users" element={<UserList />} />
               <Route path="/user/:id" element={<User />} />
               <Route path="/newUser" element={<NewUser />} />

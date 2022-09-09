@@ -16,8 +16,8 @@ const Products = ({ category, filters, sort }) => {
       try {
         const res = await axios.get(
           category
-            ? `http://localhost:1337/api/products?category=${category}`
-            : "http://localhost:1337/api/products"
+            ? `https://e-commerce-backend.up.railway.app/api/products?category=${category}`
+            : "https://e-commerce-backend.up.railway.app/api/products"
         );
         const {
           data: { data },
