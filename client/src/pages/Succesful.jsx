@@ -1,11 +1,19 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
+import { emptyCart } from '../redux/cartSlice';
 
 const Succesful = () => {
 
     const {state:{stripeData,cart}} = useLocation();
+    const dispatch = useDispatch()
     console.log(stripeData);
     console.log(cart); 
+
+    useEffect(()=>{
+      dispatch(emptyCart())
+    },[])
 
   return (
     <div
