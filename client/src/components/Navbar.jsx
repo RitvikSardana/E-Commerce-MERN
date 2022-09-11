@@ -20,14 +20,16 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>RITVIK.</Logo>
+          <Link to='/'>
+            <Logo>RITVIK.</Logo>
+          </Link>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
-          <Link to ='/login'>
+          <Link to="/login">
             <MenuItem>SIGN IN</MenuItem>
           </Link>
-          <Link to='/cart'>
+          <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
@@ -42,7 +44,11 @@ const Navbar = () => {
 
 const Container = styled.div`
   height: 60px;
-  ${mobile({ height: "50px" })}
+  ${mobile({ height: "50px" })};
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -71,6 +77,9 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  input:focus {
+    outline: none;
+  }
 `;
 
 const Input = styled.input`
@@ -99,7 +108,7 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })};
 `;
 
 export default Navbar;

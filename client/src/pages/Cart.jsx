@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
@@ -9,6 +9,7 @@ import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest, userRequest } from "../requestMethods";
+import { decreaseQuantity, emptyCart, increaseQuantity } from "../redux/cartSlice";
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -16,14 +17,13 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const { products, quantity, total } = useSelector((state) => state.cart);
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
   
   const [stripeToken,setStripeToken] = useState(null)
   const onToken = (token) =>{
     setStripeToken(token)
   }
 
-  console.log(stripeToken)
 
   useEffect(()=>{
     const makeRequest = async () => {
@@ -41,6 +41,19 @@ const Cart = () => {
     stripeToken && total>=1 && makeRequest();
   },[stripeToken,total,navigate])
 
+
+  const emptyCartHandler = () =>{
+    dispatch(emptyCart());
+  };
+
+  const increaseQuantityHandler = (product) => {
+    dispatch(increaseQuantity(product))
+  }
+  const decreaseQuantityHandler = (product) => {
+    dispatch(decreaseQuantity(product))
+
+  }
+
   return (
     <Container>
       <Navbar />
@@ -55,7 +68,7 @@ const Cart = () => {
             <TopText>Shopping Bag({quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled" onClick={emptyCartHandler} >EMPTY CART</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -79,10 +92,10 @@ const Cart = () => {
                       </Details>
                     </ProductDetail>
                     <PriceDetail>
-                      <ProductAmountContainer>
-                        <Add />
+                      <ProductAmountContainer >
+                        <Add onClick= {()=>increaseQuantityHandler(product)}/>
                         <ProductAmount>{product.quantity}</ProductAmount>
-                        <Remove />
+                        <Remove onClick= {()=>decreaseQuantityHandler(product)} />
                       </ProductAmountContainer>
                       <ProductPrice>
                         ₹ {product.price * product.quantity}
@@ -102,17 +115,16 @@ const Cart = () => {
               <SummaryItemText>Estimated Shipping</SummaryItemText>
               <SummaryItemPrice>₹ 300</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            {total > 500 && <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
               <SummaryItemPrice>-₹ 300</SummaryItemPrice>
-            </SummaryItem>
+            </SummaryItem>}
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>₹ {total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
               name = "Ritvik Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
               billingAddress
               shippingAddress
               description={`Your total is ₹${total}`}
@@ -121,7 +133,7 @@ const Cart = () => {
               stripeKey = {KEY}
               currency='INR'
             >
-            <Button >CHECKOUT NOW</Button>
+            <Button disabled = {total >0? false:true}>CHECKOUT NOW</Button>
             </StripeCheckout>
           </Summary>
         </Bottom>

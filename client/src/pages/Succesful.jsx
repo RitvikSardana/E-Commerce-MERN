@@ -5,7 +5,7 @@ const Succesful = () => {
 
     const {state:{stripeData,cart}} = useLocation();
     console.log(stripeData);
-    console.log(cart);
+    console.log(cart); 
 
   return (
     <div
@@ -18,7 +18,7 @@ const Succesful = () => {
     }}
   >
     {true
-      ? `Order has been created successfully. Your order number is ${"orderId"}`
+      ? `Order has been created successfully. Your order number is ${stripeData.id}`
       : `Successfull. Your order is being prepared...`}
     <Link to = '/'>
     <button style={{ padding: 10, marginTop: 20,cursor:'pointer' }}>Go to Homepage</button>

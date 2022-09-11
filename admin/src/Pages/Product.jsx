@@ -44,7 +44,6 @@ const Product = () => {
         sortedData.map((item) =>
           setProductStats((prev) => [...prev, { name: MONTHS[item._id-1],Sales:item.total }])
         );
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
