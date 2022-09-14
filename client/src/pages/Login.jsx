@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const {isFetching,error} = useSelector(state=>state.user)
+  const { isFetching, error } = useSelector((state) => state.user);
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -16,6 +17,17 @@ const Login = () => {
     login(dispatch, {
       username,
       password,
+    });
+  };
+
+  const testCredentialsHandler = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+    // setPassword("test123");
+    // setUserName("test");
+    login(dispatch, {
+      username:"test",
+      password:"test123",
     });
   };
 
@@ -36,10 +48,23 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
-          <Button onClick={loginHandler} disabled={isFetching}>LOGIN</Button>
-          {error && <Error>Something Went Wrong!</Error> }
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <div>
+            <Button onClick={loginHandler} disabled={isFetching}>
+              LOGIN
+            </Button>
+            <Button
+              secondary
+              onClick={testCredentialsHandler}
+              disabled={isFetching}
+            >
+              Enter Test Credentials
+            </Button>
+          </div>
+          {error && <Error>Something Went Wrong!</Error>}
+          <LinkCustom>DO NOT YOU REMEMBER THE PASSWORD?</LinkCustom>
+          <Link to="/register">
+            <LinkCustom>CREATE A NEW ACCOUNT</LinkCustom>
+          </Link>
         </Form>
       </Wrapper>
     </Container>
@@ -86,28 +111,30 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 40%;
-  border: none;
+  width: ${(props) => (props.secondary ? "50%" : "40%")};;
+  border: ${(props) => (props.secondary ? "1px solid teal" : "none")};
   padding: 15px 20px;
-  background-color: teal;
-  color: white;
+  background-color: ${(props) => (props.secondary ? "white" : "teal")};;
+  color: ${(props) => (props.secondary ? "teal" : "white")};;
+  margin-right: 10px;
   cursor: pointer;
   margin-bottom: 10px;
-  &:disabled{
-    color:green;
-    cursor:not-allowed;
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
   }
 `;
 
-const Link = styled.a`
+const LinkCustom = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
+  color: black;
 `;
 
 const Error = styled.span`
-  color:red;
-`
+  color: red;
+`;
 
 export default Login;

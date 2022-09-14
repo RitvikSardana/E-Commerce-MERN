@@ -1,14 +1,24 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { logout } from "../redux/userSlice";
 import { mobile } from "../responsive";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const { quantity } = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  console.log(user);
   return (
     <Container>
       <Wrapper>
@@ -20,15 +30,24 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Link to='/'>
+          <Link to="/">
             <Logo>RITVIK.</Logo>
           </Link>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <Link to="/login">
-            <MenuItem>SIGN IN</MenuItem>
-          </Link>
+          {!user._id ? (
+            <>
+              <MenuItem>REGISTER</MenuItem>
+              <Link to="/login">
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
+            </>
+          ) : (
+            <>
+              <MenuItem>Hello, {user.username} </MenuItem>
+              <MenuItem onClick={logoutHandler}>LOGOUT</MenuItem>
+            </>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

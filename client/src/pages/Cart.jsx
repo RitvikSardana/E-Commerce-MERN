@@ -111,10 +111,10 @@ const Cart = () => {
               <SummaryItemText>Subtotal</SummaryItemText>
               <SummaryItemPrice>₹ {total}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            {total && <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
               <SummaryItemPrice>₹ 300</SummaryItemPrice>
-            </SummaryItem>
+            </SummaryItem>}
             {total > 500 && <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
               <SummaryItemPrice>-₹ 300</SummaryItemPrice>
