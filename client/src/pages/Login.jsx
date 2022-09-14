@@ -14,9 +14,11 @@ const Login = () => {
   const loginHandler = (e) => {
     e.preventDefault();
 
+    username &&
+    password &&
     login(dispatch, {
-      username,
-      password,
+        username,
+        password,
     });
   };
 
@@ -26,8 +28,8 @@ const Login = () => {
     // setPassword("test123");
     // setUserName("test");
     login(dispatch, {
-      username:"test",
-      password:"test123",
+      username: "test",
+      password: "test123",
     });
   };
 
@@ -111,11 +113,11 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: ${(props) => (props.secondary ? "50%" : "40%")};;
+  width: ${(props) => (props.secondary ? "50%" : "40%")};
   border: ${(props) => (props.secondary ? "1px solid teal" : "none")};
   padding: 15px 20px;
-  background-color: ${(props) => (props.secondary ? "white" : "teal")};;
-  color: ${(props) => (props.secondary ? "teal" : "white")};;
+  background-color: ${(props) => (props.secondary ? "white" : "teal")};
+  color: ${(props) => (props.secondary ? "teal" : "white")};
   margin-right: 10px;
   cursor: pointer;
   margin-bottom: 10px;
