@@ -18,7 +18,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  console.log(user);
   return (
     <Container>
       <Wrapper>

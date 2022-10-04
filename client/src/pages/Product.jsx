@@ -45,7 +45,6 @@ const Product = () => {
   const addToCartHandler = () => {
     // We dispatch an action
 
-    console.log(quantity);
 
     if( !color ){
       alert("Please select Color, Size and Quantity")
