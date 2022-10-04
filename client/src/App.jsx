@@ -28,11 +28,11 @@ const App = () => {
         <Route path="/success" element={<Succesful />} />
         <Route 
           path="/login" 
-          element={Object.keys(user).length ? <Navigate to ='/'/> : <Login />} 
+          element={Object.keys(user)?.length ? <Navigate to ='/'/> : <Login />} 
         />
         <Route 
           path="/register" 
-          element={Object.keys(user).length ? <Navigate to ='/'/> : <Register />} />
+          element={Object.keys(user)?.length ? <Navigate to ='/'/> : <Register />} />
       </Routes>
     </Router>
   );
