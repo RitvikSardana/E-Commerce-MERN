@@ -1,6 +1,7 @@
 const CryptoJS = require("crypto-js");
 const User = require("../models/User");
 
+
 const api_users_update = async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
