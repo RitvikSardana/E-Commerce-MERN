@@ -36,7 +36,7 @@ const Navbar = () => {
         <Right>
           {!user?._id ? (
             <>
-              <MenuItem>REGISTER</MenuItem>
+              {/* <MenuItem>REGISTER</MenuItem> */}
               <Link to="/login">
                 <MenuItem>SIGN IN</MenuItem>
               </Link>

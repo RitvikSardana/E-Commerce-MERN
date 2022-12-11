@@ -64,9 +64,9 @@ const Login = () => {
           </div>
           {error && <Error>Something Went Wrong!</Error>}
           <LinkCustom>DO NOT YOU REMEMBER THE PASSWORD?</LinkCustom>
-          <Link to="/register">
+          {/* <Link to="/register">
             <LinkCustom>CREATE A NEW ACCOUNT</LinkCustom>
-          </Link>
+          </Link> */}
         </Form>
       </Wrapper>
     </Container>
